@@ -6,12 +6,13 @@ import StepLabel from '@mui/material/StepLabel'
 import Typography from '@mui/material/Typography'
 import FirstStep from './FirstStep'
 import SecondStep from './SecondStep'
+import ThirdStep from './ThirdStep'
 import Confirm from './Confirm'
 import Success from './Success'
 import { AppContext } from '../Context'
 
 // Step titles
-const labels = ['First Step', 'Second Step', 'Confirmation']
+const labels = ['Informations personnelles', 'Biens', 'Informations Complémentaires', 'Confirmation']
 const handleSteps = (step: number) => {
   switch (step) {
     case 0:
@@ -19,6 +20,8 @@ const handleSteps = (step: number) => {
     case 1:
       return <SecondStep />
     case 2:
+      return <ThirdStep />
+    case 3:
       return <Confirm />
     default:
       throw new Error('Unknown step')
@@ -36,10 +39,10 @@ const StepForm = () => {
         <>
           <Box sx={{ my: 5 }}>
             <Typography variant='h4' align='center'>
-              Multi Step Form
+              La maison des Experts
             </Typography>
             <Typography variant='subtitle2' align='center' sx={{ mt: 2 }}>
-              React Material UI multi step form with basic form validation logic.
+              Remplissez le formulaire afin d&#39;obtenir un diagnostic de votre bien.
             </Typography>
           </Box>
           <Stepper activeStep={activeStep} sx={{ py: 3 }} alternativeLabel>

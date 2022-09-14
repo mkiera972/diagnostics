@@ -7,15 +7,15 @@ import { AppContext } from '../Context'
 
 export default function FirstStep() {
   const { formValues, handleChange, handleNext, variant, margin } = useContext(AppContext)
-  const { firstName, lastName, email, gender } = formValues
+  const { firstName, lastName, email, phone } = formValues
 
   // Check if all values are not empty and if there are some errors
   const isError = useCallback(
     () =>
-      Object.keys({ firstName, lastName, email, gender }).some(
+      Object.keys({ firstName, lastName, email, phone }).some(
         (name) => (formValues[name].required && !formValues[name].value) || formValues[name].error
       ),
-    [formValues, firstName, lastName, email, gender]
+    [formValues, firstName, lastName, email, phone]
   )
 
   return (
@@ -26,9 +26,9 @@ export default function FirstStep() {
             variant={variant}
             margin={margin}
             fullWidth
-            label='First Name'
+            label='Prénom'
             name='firstName'
-            placeholder='Your first name'
+            placeholder='Votre Prénom'
             value={firstName.value}
             onChange={handleChange}
             error={!!firstName.error}
@@ -41,9 +41,9 @@ export default function FirstStep() {
             variant={variant}
             margin={margin}
             fullWidth
-            label='Last Name'
+            label='Nom'
             name='lastName'
-            placeholder='Your last name'
+            placeholder='Votre nom'
             value={lastName.value}
             onChange={handleChange}
             error={!!lastName.error}
@@ -59,7 +59,7 @@ export default function FirstStep() {
             fullWidth
             label='Email'
             name='email'
-            placeholder='Your email address'
+            placeholder='Votre email'
             type='email'
             value={email.value}
             onChange={handleChange}
@@ -74,22 +74,15 @@ export default function FirstStep() {
             variant={variant}
             margin={margin}
             fullWidth
-            select
-            SelectProps={{
-              native: true
-            }}
-            label='Gender'
-            name='gender'
-            value={gender.value}
+            label='Téléphone'
+            placeholder='Votre téléphone'
+            name='phone'
+            value={phone.value}
             onChange={handleChange}
-            error={!!gender.error}
-            helperText={gender.error}
-            required={gender.required}
-          >
-            <option value=''> </option>
-            <option value='Male'>Male</option>
-            <option value='Female'>Female</option>
-          </TextField>
+            error={!!phone.error}
+            helperText={phone.error}
+            required={phone.required}
+          />
         </Grid>
       </Grid>
 
@@ -101,7 +94,7 @@ export default function FirstStep() {
           color='primary'
           onClick={!isError() ? handleNext : () => null}
         >
-          Next
+          Suivant
         </Button>
       </Box>
     </>

@@ -21,21 +21,33 @@ export const initialValues: ValidationSchema = {
   email: {
     value: '',
     error: '',
+    required: true,
     validate: 'email'
   },
-  gender: {
+  typeBiens: {
     value: '',
     error: '',
-    validate: 'select'
+    validate: 'select',
+    required: true,
   },
   date: {
     value: '',
+    required: true,
     error: ''
   },
   city: {
     value: '',
     error: '',
+    required: true,
     validate: 'text',
+    minLength: 3,
+    maxLength: 20
+  },
+  codePostal: {
+    value: '',
+    error: '',
+    required: true,
+    validate: 'number',
     minLength: 3,
     maxLength: 20
   },
@@ -49,7 +61,44 @@ export const initialValues: ValidationSchema = {
   phone: {
     value: '',
     error: '',
+    required: true,
     validate: 'phone',
     maxLength: 15
-  }
+  },
+  zoneBruit: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
+  bienUsageHabitation: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
+  bienCoPropriete: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
+  bienAvecClim: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
+  batAccueilPublic: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
+  bienNonRaccordeEgout: {
+    value: '',
+    error: '',
+    validate: 'select',
+    required: true,
+  },
 }
