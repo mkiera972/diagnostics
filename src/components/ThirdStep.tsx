@@ -122,7 +122,7 @@ export default function ThirdStep() {
                 native: true
               }}
               label="Votre bien acceuil t'il du public ?"
-              name='bienAvecClim'
+              name='batAccueilPublic'
               value={batAccueilPublic.value}
               onChange={handleChange}
               error={!!batAccueilPublic.error}
@@ -144,7 +144,7 @@ export default function ThirdStep() {
                 native: true
               }}
               label="Votre bien est-il raccordé aux égouts ?"
-              name='bienAvecClim'
+              name='bienNonRaccordeEgout'
               value={bienNonRaccordeEgout.value}
               onChange={handleChange}
               error={!!bienNonRaccordeEgout.error}
