@@ -8,11 +8,11 @@ import FirstStep from './FirstStep'
 import SecondStep from './SecondStep'
 import ThirdStep from './ThirdStep'
 import Confirm from './Confirm'
-import Success from './Success'
+// import Success from './Success'
 import { AppContext } from '../Context'
 
 // Step titles
-const labels = ['Informations personnelles', 'Biens', 'Informations Complémentaires', 'Confirmation']
+const labels = ['Informations', 'Bien', 'Détails']
 const handleSteps = (step: number) => {
   switch (step) {
     case 0:
@@ -21,8 +21,6 @@ const handleSteps = (step: number) => {
       return <SecondStep />
     case 2:
       return <ThirdStep />
-    case 3:
-      return <Confirm />
     default:
       throw new Error('Unknown step')
   }
@@ -34,7 +32,7 @@ const StepForm = () => {
   return (
     <>
       {activeStep === labels.length ? (
-        <Success />
+        <Confirm />
       ) : (
         <>
           <Box sx={{ my: 5 }}>

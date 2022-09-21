@@ -12,7 +12,7 @@ import { AppContext } from '../Context'
 
 
 export default function Confirm() {
-  const { formValues, handleBack, handleNext } = useContext(AppContext)
+  const { formValues, handleBack } = useContext(AppContext)
   const { firstName, lastName, email, date, city, phone } = formValues;
 
   console.log(moment(new Date()).format('YYYY'));
@@ -25,7 +25,7 @@ export default function Confirm() {
 
   console.log(yearDiff);
 
-  const handleSubmit = () => {
+  /* const handleSubmit = () => {
     // Remove unwanted properties from formValue object
     let form = {}
 
@@ -40,7 +40,7 @@ export default function Confirm() {
     console.log(form)
     // Show last component or success message
     handleNext()
-  }
+  } */
 
   return (
     <>
@@ -169,9 +169,9 @@ export default function Confirm() {
         <Button sx={{ mr: 1 }} onClick={handleBack}>
           Retour
         </Button>
-        <Button variant='contained' color='success' onClick={handleSubmit}>
+        {/* <Button variant='contained' color='success' onClick={handleSubmit}>
           Confirmer & Continuer
-        </Button>
+          </Button> */}
       </Box>
     </>
   )
