@@ -3,22 +3,19 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormHelperText from '@mui/material/FormHelperText'
-import Checkbox from '@mui/material/Checkbox'
 import { AppContext } from '../Context'
 
 export default function SecondStep() {
   const { formValues, handleChange, handleBack, handleNext, variant, margin } = useContext(AppContext)
   console.log(formValues)
-  const { city, date, typeBiens, codePostal, agreenemt } = formValues
+  const { city, date, typeBiens, codePostal, datePermisContruction } = formValues
 
   const isError = useCallback(
     () =>
-      Object.keys({ city, date, typeBiens, codePostal, agreenemt }).some(
+      Object.keys({ city, date, typeBiens, codePostal, datePermisContruction }).some(
         (name) => (formValues[name].required && !formValues[name].value) || formValues[name].error
       ),
-    [formValues, city, date, typeBiens, codePostal, agreenemt]
+    [formValues, city, date, typeBiens, codePostal, datePermisContruction]
   )
 
   return (
@@ -76,7 +73,23 @@ export default function SecondStep() {
             required={codePostal.required}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            variant={variant}
+            margin={margin}
+            fullWidth
+            InputLabelProps={{
+              shrink: true
+            }}
+            label='Date du permis de construire'
+            name='datePermisContruction'
+            type='date'
+            defaultValue={datePermisContruction.value}
+            onChange={handleChange}
+            required={datePermisContruction.required}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <TextField
             variant={variant}
             margin={margin}
@@ -91,21 +104,6 @@ export default function SecondStep() {
             onChange={handleChange}
             required={date.required}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={agreenemt.value}
-                onChange={handleChange}
-                name='agreenemt'
-                color='primary'
-                required={agreenemt.required}
-              />
-            }
-            label='Agree to terms and conditions'
-          />
-          <FormHelperText error={!!agreenemt.error}>{agreenemt.error}</FormHelperText>
         </Grid>
       </Grid>
 

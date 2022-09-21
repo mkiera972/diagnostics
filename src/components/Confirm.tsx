@@ -19,6 +19,7 @@ export default function Confirm() {
   console.log(moment(new Date(date.value)).format('YYYY'));
 
   const currentYearBien = parseInt(moment(new Date(date.value)).format('YYYY'), 10);
+  const currentYearPermisBien = parseInt(moment(new Date(formValues.datePermisContruction.value)).format('YYYY'), 10);
 
   const yearDiff = parseInt(moment(new Date()).format('YYYY'), 10) - currentYearBien;
 
@@ -45,8 +46,8 @@ export default function Confirm() {
     <>
       <List disablePadding>
         <ListItem>
-          <ListItemText primary='Votre prénom' secondary={firstName.value || 'Not Provided'} />
-          <ListItemText primary='Votre Nom' secondary={lastName.value || 'Not Provided'} />
+          <ListItemText primary='Prénom' secondary={firstName.value || 'Not Provided'} />
+          <ListItemText primary='Nom' secondary={lastName.value || 'Not Provided'} />
         </ListItem>
 
         <Divider />
@@ -59,6 +60,13 @@ export default function Confirm() {
         <Divider />
 
         <ListItem>
+          <ListItemText primary='Type du bien' secondary={formValues.typeBiens.value || 'Not Provided'} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary='Date du permis de construire' secondary={moment(formValues.datePermisContruction.value ).format('DD/MM/YYYY') || 'Not Provided'} />
           <ListItemText primary='Date de construction' secondary={moment(date.value ).format('DD/MM/YYYY') || 'Not Provided'} />
         </ListItem>
 
@@ -77,7 +85,7 @@ export default function Confirm() {
 
         { yearDiff > 15 ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Diagnostic Gaz
               </Alert>
             </Stack>
@@ -86,16 +94,16 @@ export default function Confirm() {
 
         { yearDiff > 15 ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Diagnostic Electricité
               </Alert>
             </Stack>
             : null
         }
 
-        { currentYearBien < 1949 ?
+        { currentYearPermisBien < 1949 ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Constat de risque d&#39;exposition au plomb (CREP)
               </Alert>
             </Stack>
@@ -104,7 +112,7 @@ export default function Confirm() {
 
         { (currentYearBien > 1949) && (currentYearBien < 1997) ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Diagnostic Amiante
               </Alert>
             </Stack>
@@ -113,7 +121,7 @@ export default function Confirm() {
 
         {  formValues.zoneBruit.value === "OUI" ?
           <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-            <Alert variant="filled" severity="warning">
+            <Alert variant="outlined" severity="warning">
               Plan d’exposition au bruit
             </Alert>
           </Stack>
@@ -122,7 +130,7 @@ export default function Confirm() {
 
         { formValues.typeBiens.value === "Location" && formValues.bienUsageHabitation.value === "OUI" ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Surface habitable
               </Alert>
             </Stack>
@@ -131,7 +139,7 @@ export default function Confirm() {
 
         { formValues.typeBiens.value === "Vente" && formValues.bienCoPropriete.value === "OUI" ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Attestation de Surface Privative / Loi Carrez
               </Alert>
             </Stack>
@@ -140,7 +148,7 @@ export default function Confirm() {
 
         { formValues.bienAvecClim.value === "OUI" ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 DPE MARTINIQUE
               </Alert>
             </Stack>
@@ -149,7 +157,7 @@ export default function Confirm() {
 
         { formValues.bienNonRaccordeEgout.value === "Vente" && formValues.bienNonRaccordeEgout.value === "OUI" ?
             <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-              <Alert variant="filled" severity="warning">
+              <Alert variant="outlined" severity="warning">
                 Assainissement
               </Alert>
             </Stack>
@@ -159,10 +167,10 @@ export default function Confirm() {
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
         <Button sx={{ mr: 1 }} onClick={handleBack}>
-          Back
+          Retour
         </Button>
         <Button variant='contained' color='success' onClick={handleSubmit}>
-          Confirm & Continue
+          Confirmer & Continuer
         </Button>
       </Box>
     </>

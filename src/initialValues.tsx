@@ -35,6 +35,11 @@ export const initialValues: ValidationSchema = {
     required: true,
     error: ''
   },
+  datePermisContruction: {
+    value: '',
+    required: true,
+    error: ''
+  },
   city: {
     value: '',
     error: '',
