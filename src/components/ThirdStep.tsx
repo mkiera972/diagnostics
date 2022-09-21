@@ -10,7 +10,6 @@ import { AppContext } from '../Context'
 
 export default function ThirdStep() {
   const { formValues, handleChange, handleBack, handleNext, variant, margin } = useContext(AppContext)
-  console.log(formValues)
   const { zoneBruit, bienUsageHabitation, bienCoPropriete, bienAvecClim, batAccueilPublic, bienNonRaccordeEgout} = formValues
 
   const isError = useCallback(
