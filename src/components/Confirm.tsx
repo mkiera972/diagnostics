@@ -18,15 +18,10 @@ export default function Confirm() {
   const { formValues, handleBack } = useContext(AppContext)
   const { firstName, lastName, email, date, city, phone } = formValues;
 
-  console.log(moment(new Date()).format('YYYY'));
-  console.log(moment(new Date(date.value)).format('YYYY'));
-
   const currentYearBien = parseInt(moment(new Date(date.value)).format('YYYY'), 10);
   const currentYearPermisBien = parseInt(moment(new Date(formValues.datePermisContruction.value)).format('YYYY'), 10);
 
   const yearDiff = parseInt(moment(new Date()).format('YYYY'), 10) - currentYearBien;
-
-  console.log(yearDiff);
 
   /* const handleSubmit = () => {
     // Remove unwanted properties from formValue object
