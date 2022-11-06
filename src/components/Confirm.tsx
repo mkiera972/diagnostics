@@ -52,6 +52,7 @@ export default function Confirm() {
       Téléphone : ${phone.value} <br/>
       <br/><br/>
       <b>Votre Biens : </b><br/>
+      Type de bien : ${formValues.typeBiens.value} <br/>
       Date du permis de construire : ${moment(formValues.datePermisContruction.value).format('DD/MM/YYYY')} <br/>
       Date de construction : ${moment(formValues.date.value).format('DD/MM/YYYY')}<br/>
       Code Postal : ${formValues.codePostal.value} <br/>
