@@ -11,7 +11,10 @@ import moment from 'moment'
 import { AppContext } from '../Context'
 
 
+
+
 export default function Confirm() {
+
   const { formValues, handleBack } = useContext(AppContext)
   const { firstName, lastName, email, date, city, phone } = formValues;
 
@@ -41,6 +44,50 @@ export default function Confirm() {
     // Show last component or success message
     handleNext()
   } */
+
+  const sendEmail = () => {
+  
+    const data = JSON.stringify({
+      "body": `Bonjour MR/MME ${lastName.value},
+      <br/><br/>
+      <b>Vos informations :</b> <br/>
+      Nom : ${lastName.value} <br/>
+      Prénom : ${firstName.value} <br/>
+      Email : ${email.value} <br/>
+      Téléphone : ${phone.value} <br/>
+      <br/><br/>
+      <b>Votre Biens : </b><br/>
+      Date du permis de construire : ${moment(formValues.datePermisContruction.value).format('DD/MM/YYYY')} <br/>
+      Date de construction : ${moment(formValues.date.value).format('DD/MM/YYYY')}<br/>
+      Code Postal : ${formValues.codePostal.value} <br/>
+      Ville : ${city.value} <br/>
+      <br/><br/>
+      <b>Diagnostiques à faire : </b><br/>
+      <ul>
+        ${yearDiff > 15 ? "<li>Diagnostic Gaz</li>" : ""}
+        ${yearDiff > 15 ? "<li>Diagnostic Electricité</li>" : ""}
+        ${currentYearPermisBien < 1949 ? "<li>Constat de risque d&#39;exposition au plomb (CREP)</li>" : ""}
+        ${(currentYearBien > 1949) && (currentYearBien < 1997) ? "<li>Diagnostic Amiante</li>" : ""}
+        ${(currentYearBien > 1949) && (currentYearBien < 1997) ? "<li>Diagnostic Amiante</li>" : ""}
+        ${formValues.zoneBruit.value === "OUI" ? "<li>Plan d’exposition au bruit</li>" : ""}
+        ${formValues.typeBiens.value === "Location" && formValues.bienUsageHabitation.value === "OUI" ? "<li>Surface habitable</li>" : ""}
+        ${formValues.typeBiens.value === "Vente" && formValues.bienCoPropriete.value === "OUI" ? "<li>Attestation de Surface Privative / Loi Carrez</li>" : ""}
+        ${formValues.bienAvecClim.value === "OUI" ? "<li>DPE MARTINIQUE</li>" : ""}
+        ${formValues.bienNonRaccordeEgout.value === "Vente" && formValues.bienNonRaccordeEgout.value === "OUI" ? "<li>Assainissement</li>" : ""}
+      </ul>
+      `
+    });
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: data
+  };
+    fetch("http://localhost:3001/api/send", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    
+  }
 
   return (
     <>
@@ -80,7 +127,7 @@ export default function Confirm() {
         <Divider />
 
         <Stack sx={{ width: '100%', marginTop: '10px' }} spacing={2}>
-          <Alert severity="error">Diagnostic à faire : </Alert>
+          <Alert severity="error">Diagnostiques à faire : </Alert>
         </Stack>
 
         { yearDiff > 15 ?
@@ -169,9 +216,7 @@ export default function Confirm() {
         <Button sx={{ mr: 1 }} onClick={handleBack}>
           Retour
         </Button>
-        {/* <Button variant='contained' color='success' onClick={handleSubmit}>
-          Confirmer & Continuer
-          </Button> */}
+        <Button variant='contained' color='success' onClick={sendEmail}>Envoyer la demande</Button>
       </Box>
     </>
   )
