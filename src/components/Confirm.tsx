@@ -81,7 +81,8 @@ export default function Confirm() {
         ${formValues.bienAvecClim.value === "OUI" ? "<li>DPE MARTINIQUE</li>" : ""}
         ${formValues.bienNonRaccordeEgout.value === "Vente" && formValues.bienNonRaccordeEgout.value === "OUI" ? "<li>Assainissement</li>" : ""}
       </ul>
-      `
+      `,
+      "emailClient" : email.value
     });
     const requestOptions = {
       method: 'POST',
