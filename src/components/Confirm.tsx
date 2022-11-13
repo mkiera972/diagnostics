@@ -7,6 +7,7 @@ import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { Snackbar } from '@mui/material'
 import moment from 'moment'
 import { AppContext } from '../Context'
 
@@ -14,6 +15,10 @@ import { AppContext } from '../Context'
 
 
 export default function Confirm() {
+  const [open, setOpen] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+
+  const [display, setDisplay] = React.useState("flex");
 
   const { formValues, handleBack } = useContext(AppContext)
   const { firstName, lastName, email, date, city, phone } = formValues;
@@ -39,6 +44,11 @@ export default function Confirm() {
     // Show last component or success message
     handleNext()
   } */
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpenError(false);
+  };
 
   const sendEmail = () => {
   
@@ -77,16 +87,38 @@ export default function Confirm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: data
-  };
-    fetch("http://localhost:3001/api/send", requestOptions)
-      .then(response => response.text())
+    };
+    setOpen(false);
+    setOpenError(false);
+    setDisplay("none");
+    // fetch("http://localhost:3001/api/send", requestOptions)
+    fetch("http://51.68.228.20:3001/api/send", requestOptions)
+      .then((response) => {
+        if(response.status === 200 ) {
+          setOpen(true);
+        }
+      })
       .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      .catch(() => {
+        setOpenError(true);
+        setDisplay("block");
+      } 
+    );
     
   }
 
   return (
     <>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        L&apos;email a bien été renvoyé, vous recevrez un email de confirmation.
+      </Alert>
+    </Snackbar>
+    <Snackbar open={openError} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+      Une erreur s&apos;est produite lors de l&apos;envoi de l&apos;email, veuillez nous contacter.
+      </Alert>
+    </Snackbar>
       <List disablePadding>
         <ListItem>
           <ListItemText primary='Prénom' secondary={firstName.value || 'Not Provided'} />
@@ -208,7 +240,7 @@ export default function Confirm() {
         }
       </List>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }} style={{'display' : display}}>
         <Button sx={{ mr: 1 }} onClick={handleBack}>
           Retour
         </Button>
